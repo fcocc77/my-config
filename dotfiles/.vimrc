@@ -7,7 +7,7 @@
     " Fuentes e Iconos
     Plug 'ryanoasis/vim-devicons'
     Plug 'ryanoasis/nerd-fonts'
-    Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+    " Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 
     " Sintaxis Python
@@ -111,10 +111,12 @@
     autocmd BufEnter .xinitrc :setlocal filetype=sh
     autocmd BufEnter *.vina :setlocal filetype=json
     autocmd BufEnter *.conf :setlocal filetype=xf86conf
+    autocmd BufEnter *.layout :setlocal filetype=requirements
     autocmd BufEnter *.txt :setlocal filetype=sh
     autocmd BufEnter *.clang-format :setlocal filetype=yaml
     autocmd Bufenter requirements.txt :setlocal filetype=requirements
     autocmd Bufenter go.mod :setlocal filetype=go
+    autocmd BufEnter *.vfl :setlocal filetype=cpp
 """
 
 " Configuracion de Plugins
