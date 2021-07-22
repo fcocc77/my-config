@@ -1,34 +1,37 @@
-# este script bloquea el acceso al internet a una applicacion especifica
+# Script que crea un grupo sin acceso a internet
 
-# para que funcione el sudo en el usuario, solo funciona en root, ¡ reiniciar para que tenga efecto !
-#   usermod -aG wheel "user"
+no_internet_group=$(cat /etc/group | grep no-internet)
+if [[ ! $no_internet_group == *"no-internet"* ]]; then
+    # crea un grupo llamado no-internet, solo si no existe
+    sudo -S groupadd no-internet
 
-# crea un grupo llamado no-internet, solo si no existe
-sudo -S groupadd no-internet
+    # añadimos nuestro usuario en el grupo no-internet, 
+    # esto es para poder usar este grupo en usuario
+    sudo usermod -aG no-internet $USER
+fi
 
-# el cortafuego tiene que estar activado
-sudo systemctl start firewalld
+# elimina las reglas directas, antes de agregar las nuestras
+sudo rm '/etc/firewalld/direct.xml'
 
-# borra todas las reglas iptables
-sudo iptables -P INPUT ACCEPT
-sudo iptables -P FORWARD ACCEPT
-sudo iptables -P OUTPUT ACCEPT
-sudo iptables -t nat -F
-sudo iptables -t mangle -F
-sudo iptables -F
-sudo iptables -X
+sudo systemctl restart firewalld
+sudo firewall-cmd --reload
+
+add_rule()
+{
+    sudo firewall-cmd --permanent --direct --add-rule ipv4 filter OUTPUT 0 $@
+}
 
 # permite el acceso local en el grupo no-internet
-sudo iptables -A OUTPUT -o lo -m owner --gid-owner no-internet -j ACCEPT
+add_rule -o lo -m owner --gid-owner no-internet -j ACCEPT
 
 # permite el acceso al puerto 771 de la ip local de vmanager
-sudo iptables -A OUTPUT -p tcp -d "192.168.1.77" --dport 771 -j ACCEPT
+add_rule -p tcp -d "192.168.1.77" --dport 771 -j ACCEPT
 
 # bloquea el acceso a internet en el grupo no-internet
-sudo iptables -A OUTPUT -m owner --gid-owner no-internet -j DROP
+add_rule -m owner --gid-owner no-internet -j DROP
 
-# añadimos nuestro usuario en el grupo no-internet, esto es para poder usar este grupo en usuario
-sudo usermod -aG no-internet $USER
+sudo systemctl restart firewalld
+sudo firewall-cmd --reload
 
 # ejecuta una app en el grupo no-internet, ya que en ese grupo tiene
 # reglas de iptable que bloquean el internet, la app queda sin internet
