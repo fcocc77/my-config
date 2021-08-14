@@ -114,7 +114,6 @@ function action()
 add_custom_key 1 'gnome_terminal' '<Shift><Mod4>Return' 'mate-terminal'
 add_custom_key 2 'chrome' '<Mod4>g' 'google-chrome-stable'
 add_custom_key 3 'caja' '<Mod4>c' 'caja /home'
-add_custom_key 4 'logout' '<Shift><Mod4>q' 'mate-session-save --logout'
 add_custom_key 5 'tiling' '<Mod4>space' "python3 $path/../python_scripts/tiling.py"
 add_custom_key 6 'pluma' '<Mod4>e' 'pluma'
 add_custom_key 7 'session_restore' '<Shift><Mod4>r' 'session restore missing'
@@ -133,7 +132,6 @@ action 21 'reset_window' '<Alt><Mod4>u' 'reset_window'
 # Touchpad Settings
 gsettings set org.mate.peripherals-touchpad natural-scroll true
 gsettings set org.mate.peripherals-touchpad tap-to-click true
-gsettings set org.mate.peripherals-touchpad motion-acceleration 7.5
 gsettings set org.mate.peripherals-touchpad motion-threshold 3
 
 # Power Manager Settings
