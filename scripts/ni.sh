@@ -16,16 +16,23 @@ sudo rm '/etc/firewalld/direct.xml'
 sudo systemctl restart firewalld
 sudo firewall-cmd --reload
 
-add_rule()
+add_ipv4_rule()
 {
     sudo firewall-cmd --permanent --direct --add-rule ipv4 filter OUTPUT 0 $@
+}
+
+add_rule()
+{
+    for ipv in ipv4 ipv6; do
+        sudo firewall-cmd --permanent --direct --add-rule $ipv filter OUTPUT 0 $@
+    done
 }
 
 # permite el acceso local en el grupo no-internet
 add_rule -o lo -m owner --gid-owner no-internet -j ACCEPT
 
 # permite el acceso al puerto 771 de la ip local de vmanager
-add_rule -p tcp -d "192.168.1.77" --dport 771 -j ACCEPT
+add_ipv4_rule -p tcp -d "192.168.10.77" --dport 771 -j ACCEPT
 
 # bloquea el acceso a internet en el grupo no-internet
 add_rule -m owner --gid-owner no-internet -j DROP
