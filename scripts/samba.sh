@@ -1,7 +1,7 @@
 #!/bin/sh
 #----------------------
-user=server1
-shared="/opt"
+user=pancho
+shared="/home/pancho/Documents"
 #----------------------
 
 name=$(basename $shared)

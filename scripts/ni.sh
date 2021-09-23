@@ -32,7 +32,7 @@ add_rule()
 add_rule -o lo -m owner --gid-owner no-internet -j ACCEPT
 
 # permite el acceso al puerto 771 de la ip local de vmanager
-add_ipv4_rule -p tcp -d "192.168.10.77" --dport 771 -j ACCEPT
+add_ipv4_rule -p tcp -d "192.168.100.10" --dport 771 -j ACCEPT
 
 # bloquea el acceso a internet en el grupo no-internet
 add_rule -m owner --gid-owner no-internet -j DROP
