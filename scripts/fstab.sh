@@ -1,8 +1,8 @@
 
-ip='192.168.1.77'
-disk='Documents'
+ip='192.168.100.10'
+disk='server'
 
-user='pancho'
+user='server'
 password='vfx'
 
 mount_folder="/mnt/$disk"

@@ -8,8 +8,6 @@ packages=(
 	gcc
     gcc-c++
 	perl
-	xorg-x11-server-devel
-	mtdev-devel
 	dkms
 	nodejs
     go

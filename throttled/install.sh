@@ -1,7 +1,7 @@
 sudo pip3 install psutil
 
 sudo dnf -y copr enable abn/throttled
-sudo dnf install -y throttled
+sudo dnf install -y throttled python36-devel
 
 
 sudo systemctl enable --now throttled
