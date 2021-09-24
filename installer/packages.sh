@@ -9,7 +9,7 @@ packages=(
     ntfs-3g
     ntfsprogs
     rclone
-    # unrar
+    rar
     htop       # monitor de actividad
     bind-utils # para usar 'nslookup' ( resuelve dns a ips )
     youtube-dl # descarga de youtube
@@ -20,6 +20,11 @@ packages=(
     ffmpeg
     mpv
     vlc
+
+    # para manejar ventanas de xorg
+    wmctrl 
+    xdotool
+    xwininfo
 )
 
 sudo dnf -y install ${packages[@]}
